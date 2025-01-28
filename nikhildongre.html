@@ -70,12 +70,23 @@
     .form-button button:hover {
       background-color: #0056b3;
     }
+    .message {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .success {
+      color: green;
+    }
+    .error {
+      color: red;
+    }
   </style>
 </head>
 <body>
   <div class="form-container">
     <h2>Student Information Form</h2>
-    <form action="#" method="POST">
+    <form id="studentForm">
       <div class="form-group">
         <label for="name">Full Name</label>
         <input type="text" id="name" name="name" placeholder="Enter your full name" required>
@@ -109,6 +120,38 @@
         <button type="submit">Submit</button>
       </div>
     </form>
+    <div id="message" class="message"></div>
   </div>
+
+  <script>
+    document.getElementById('studentForm').addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent form submission
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const dob = document.getElementById('dob').value;
+      const gender = document.getElementById('gender').value;
+      const address = document.getElementById('address').value.trim();
+      const message = document.getElementById('message');
+
+      // Clear previous messages
+      message.textContent = '';
+      message.classList.remove('success', 'error');
+
+      // Validate fields
+      if (!name || !email || !phone || !dob || !gender || !address) {
+        message.textContent = 'All fields are required.';
+        message.classList.add('error');
+        return;
+      }
+
+      // Show success message
+      message.textContent = 'Form submitted successfully!';
+      message.classList.add('success');
+
+      // Optionally clear form inputs
+      this.reset();
+    });
+  </script>
 </body>
 </html>
